@@ -6,6 +6,7 @@ class Product < ActiveRecord::Base
   # In other words, a product belongs to a category.
   belongs_to :category
 
+  # Columns in the products table:
   # id: primary key
   # name: string
   # description: text
@@ -19,7 +20,7 @@ class Product < ActiveRecord::Base
   # validation 2. All product names are unique and longer than 3 characters.
   validates :name, presence: true, uniqueness: true, length: { minimum: 3 }
   validates :description, presence: true
-  validates :price, presence: true, numericality: true
-  validates :stock_quantity, presence: true, numericality: { only_integer: true }
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :stock_quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
 end

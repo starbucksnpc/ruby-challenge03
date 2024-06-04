@@ -14,11 +14,12 @@ puts "Products above $10 and names starting with 'C':"
 expensive_c_products.each { |p| puts p.name}
 
 #Low is defined as less than 5 in stock.
-low_stock_products_count = Product.where('stock_quantity > ?', 5).count
+low_stock_products_count = Product.where('stock_quantity < ?', 5).count
 puts "Total number of products with low stock quantity: #{low_stock_products_count}"
 
 
 # 1. Find the name of the category associated with one of the products you have found
+product = Product.find_by(name: 'Chai')
 category_name = product.category.name
 puts "The category associated with the product '#{product.name}' is '#{category_name}'."
 
@@ -37,9 +38,9 @@ else
 end
 
 # 3. Find a specific category and then use it to locate all the associated products over a certain price
-price_threshold = 20.00
+certain_price = 20.00
 if category
-  expensive_category_products = category.products.where('price > ?', price_threshold)
+  expensive_category_products = category.products.where('price > ?', certain_price)
   expensive_category_product_names = expensive_category_products.pluck(:name)
-  puts "Products in category '#{category.name}' with price above #{price_threshold}: #{expensive_category_product_names.join(', ')}"
+  puts "Products in category '#{category.name}' with price above #{certain_price}: #{expensive_category_product_names.join(', ')}"
 end
